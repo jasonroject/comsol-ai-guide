@@ -1,0 +1,80 @@
+{
+  "status": "passed",
+  "source_sha256": "dae98727a7ba36da07cc150f6e8fa54a18bcf8fc16e8c43d876e021cf676fd27",
+  "comsol_bin": "<COMSOL_BIN>",
+  "cores": 1,
+  "processes": [
+    {
+      "label": "compile",
+      "command": [
+        "<COMSOL_BIN>\\comsolcompile.exe",
+        "<RUN_DIR>\\code\\SmokeConduction.java"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "build",
+      "command": [
+        "<COMSOL_BIN>\\comsolbatch.exe",
+        "-np",
+        "1",
+        "-inputfile",
+        "<RUN_DIR>\\code\\SmokeConduction.class",
+        "-nosave",
+        "-tmpdir",
+        "<RUN_DIR>\\tmp_build",
+        "-recoverydir",
+        "<RUN_DIR>\\recovery_build",
+        "-batchlog",
+        "<RUN_DIR>\\logs\\build_batch.log"
+      ],
+      "exit_code": 0
+    },
+    {
+      "label": "verify",
+      "command": [
+        "<COMSOL_BIN>\\comsolbatch.exe",
+        "-np",
+        "1",
+        "-inputfile",
+        "<RUN_DIR>\\code\\SmokeConduction.class",
+        "-nosave",
+        "-tmpdir",
+        "<RUN_DIR>\\tmp_verify",
+        "-recoverydir",
+        "<RUN_DIR>\\recovery_verify",
+        "-batchlog",
+        "<RUN_DIR>\\logs\\verify_batch.log"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "checks": {
+    "first": {
+      "phase": "first",
+      "dataset": "guideData",
+      "mean_T_K": 298.150000000002,
+      "max_analytic_error_K": 1.94244620388417e-12,
+      "mean_qx_W_m2": -1000.0,
+      "passed": true
+    },
+    "reopened_cached": {
+      "phase": "reopened_cached",
+      "dataset": "guideData",
+      "mean_T_K": 298.150000000002,
+      "max_analytic_error_K": 1.94244620388417e-12,
+      "mean_qx_W_m2": -1000.0,
+      "passed": true
+    },
+    "reopened_recomputed": {
+      "phase": "reopened_recomputed",
+      "dataset": "guideData",
+      "mean_T_K": 298.150000000002,
+      "max_analytic_error_K": 1.94244620388417e-12,
+      "mean_qx_W_m2": -1000.0,
+      "passed": true
+    }
+  },
+  "elapsed_seconds": 42.952785900008166,
+  "publication_note": "Original numerical results and exit codes preserved; absolute paths replaced with placeholders and process IDs omitted."
+}
